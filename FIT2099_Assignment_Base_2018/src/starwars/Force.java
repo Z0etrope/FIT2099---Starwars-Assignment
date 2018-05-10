@@ -1,18 +1,12 @@
-package starwars.actions;
+package starwars;
 
-import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.Capability;
-import starwars.SWActionInterface;
-import starwars.SWActor;
-import starwars.SWAffordance;
-import starwars.SWEntityInterface;
 /*
   @author Jason Setiawan
  */ 
 
- public class Force{
- 	boolean forceInIt;
- 	int forceLevel;
+ public class Force {
+ 	private boolean forceInIt;
+ 	private int forceLevel;
 
  	public Force(boolean force, int newForceLevel){
  		this.forceInIt = force;
@@ -31,4 +25,7 @@ import starwars.SWEntityInterface;
  		this.forceLevel += incLevel;
  	}
 
+ 	public int getForceLevel() {
+ 		return this.forceLevel;
+ 	}
  }
