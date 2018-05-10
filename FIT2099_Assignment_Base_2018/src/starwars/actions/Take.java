@@ -68,8 +68,9 @@ public class Take extends SWAffordance {
 			a.setItemCarried(theItem);
 			SWAction.getEntitymanager().remove(target);//remove the target from the entity manager since it's now held by the SWActor
 			
-			//remove the take affordance
+			//remove the take affordance and add leave affordance
 			target.removeAffordance(this);
+			target.addAffordance(new Leave(theItem, this.messageRenderer));
 		}
 	}
 
