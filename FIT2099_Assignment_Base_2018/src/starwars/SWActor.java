@@ -53,7 +53,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	private HashSet<Capability> capabilities;
 
-	private Force forcePower = new Force(false,0);
+	private Force force = new Force(false,0);
 	
 	/**
 	 * Constructor for the <code>SWActor</code>.
@@ -275,5 +275,12 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		// TODO: This assumes that the only actions are the Move actions. This will clobber any others. Needs to be fixed.
 		/* Actually, that's not the case: all non-movement actions are transferred to newActions before the movements are transferred. --ram */
 	}
-
+	
+	public Force getForceActor() {
+		return this.force;
+	}
+	
+	public void setForceActor(boolean newVal) {
+		this.force.setForce(newVal);
+	}
 }
