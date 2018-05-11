@@ -45,10 +45,6 @@ public class Player extends SWActor {
 		humanControlled = true; // this feels like a hack. Surely this should be dynamic
 		//add Train Affordance here
 	}
-
-	private initializeForce(){
-		this.forcePower.setForce(True);
-	}
 	
 	/**
 	 * This method will describe this <code>Player</code>'s scene and prompt for user input through the controller 

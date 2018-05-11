@@ -90,7 +90,4 @@ public class TuskenRaider extends SWActor {
 
 	}
 
-	private initializeForce(){
-		this.forcePower.setForce(False);
-	}
 }

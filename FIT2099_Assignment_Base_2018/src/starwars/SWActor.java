@@ -53,7 +53,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	private HashSet<Capability> capabilities;
 
-	private Force forcePower(false,0);
+	private Force forcePower = new Force(false,0);
 	
 	/**
 	 * Constructor for the <code>SWActor</code>.
@@ -276,10 +276,4 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		/* Actually, that's not the case: all non-movement actions are transferred to newActions before the movements are transferred. --ram */
 	}
 
-	private abstract initializeForce();
-
-
-	
-	
-	
 }

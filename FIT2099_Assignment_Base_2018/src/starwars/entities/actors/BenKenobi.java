@@ -43,7 +43,7 @@ public class BenKenobi extends SWLegend {
 		return ben;
 	}
 	
-	
+
 
 	@Override
 	protected void legendAct() {
@@ -68,7 +68,9 @@ public class BenKenobi extends SWLegend {
 			scheduler.schedule(myMove, this, 1);
 		}
 	}
-	private initializeForce(){
-		this.forcePower.setForce(True);
+
+	@Override
+	protected void initializeForce(){
+		this.forcePower.setForce(true);
 	}
 }
