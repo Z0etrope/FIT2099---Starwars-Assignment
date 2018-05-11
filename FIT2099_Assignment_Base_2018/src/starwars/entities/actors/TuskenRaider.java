@@ -89,4 +89,8 @@ public class TuskenRaider extends SWActor {
 		return this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription();
 
 	}
+
+	private initializeForce(){
+		this.forcePower.setForce(False);
+	}
 }

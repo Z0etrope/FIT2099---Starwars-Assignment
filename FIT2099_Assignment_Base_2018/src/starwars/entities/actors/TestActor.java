@@ -83,4 +83,8 @@ public class TestActor extends SWActor {
 		}
 	}
 
+	private initializeForce(){
+		this.forcePower.setForce(False);
+	}
+
 }
