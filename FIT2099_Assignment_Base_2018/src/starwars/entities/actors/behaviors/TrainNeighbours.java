@@ -14,7 +14,7 @@ import starwars.actions.Train;
 public class TrainNeighbours {
 
 
-	public static AttackInformation attackLocals(SWActor actor, SWWorld world, boolean avoidFriendlies, boolean avoidNonActors) {
+	public static AttackInformation trainLocals(SWActor actor, SWWorld world, boolean avoidFriendlies, boolean avoidNonActors) {
 		SWLocation location = world.getEntityManager().whereIs(actor);
 		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
 		List<SWEntityInterface> entities = em.contents(location);

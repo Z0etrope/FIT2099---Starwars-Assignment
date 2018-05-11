@@ -4,7 +4,7 @@
 package starwars.actions;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.Capability;
+import starwars.Force;
 import starwars.SWActionInterface;
 import starwars.SWActor;
 import starwars.SWAffordance;
@@ -58,48 +58,19 @@ public class Train extends SWAffordance implements SWActionInterface {
 			
 			//not updated yet
 			//need way to access Force and Force input in each actors
-			SWEntityInterface itemCarried = a.getItemCarried();
-			if (itemCarried != null) {//if the actor is carrying an item 
-				if (itemCarried.hasCapability(Capability.WEAPON)) {
-					target.takeDamage(itemCarried.getHitpoints() + 1); // blunt weapon won't do much, but it will still do some damage
-					itemCarried.takeDamage(1); // weapon gets blunt
-					a.takeDamage(energyForAttackWithWeapon); // actor uses energy to attack
-				}
-				else {//an attack with a none weapon
-					if (targetIsActor) {
-						targetActor.say("\t" + targetActor.getShortDescription()
-								+ " is amused by " + a.getShortDescription()
-								+ "'s attempted attack with "
-								+ itemCarried.getShortDescription());
-					}
-				} 
-			}
-			else { // attack with bare hands
-				target.takeDamage((a.getHitpoints()/20) + 1); // a bare-handed attack doesn't do much damage.
-				a.takeDamage(2*energyForAttackWithWeapon); // actor uses energy. It's twice as tiring as using a weapon
+			//get Force for actor and target
+			Force actorForce = a.getForceActor();
+			Force targetForce = targetActor.getForceActor();
+			//activate Force when actor Force is greater than target force
+			if (actorForce.getForceLevel() > targetForce.getForceLevel()) {
+				targetForce.incForceLevel(1);
+				a.say("\t" + a.getShortDescription() + " says: You've completed my training, " + target.getShortDescription()
+								+ ". Now go out there, and may the Force be with you!");
+			} else { //else prompt something
+				a.say("\t" + a.getShortDescription() + " says: There is nothing more I can teach you, " + target.getShortDescription());
 			}
 			
 			
-			
-			//After the attack
-			
-			if (a.isDead()) {//the actor who attacked is dead after the attack
-							
-				a.setLongDescription(a.getLongDescription() + ", that died of exhaustion while attacking someone");
-				
-				//remove the attack affordance of the dead actor so it can no longer be attacked
-				a.removeAffordance(this);
-				
-				
-			}
-			if (this.getTarget().getHitpoints() <= 0) {  // can't use isDead(), as we don't know that the target is an actor
-				target.setLongDescription(target.getLongDescription() + ", that was killed in a fight");
-							
-				//remove the attack affordance of the dead actor so it can no longer be attacked
-				targetActor.removeAffordance(this);
-
-				
-			}
 		} // not game player and different teams
 	}
 
