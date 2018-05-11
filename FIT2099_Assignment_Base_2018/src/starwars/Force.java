@@ -28,4 +28,7 @@ package starwars;
  	public int getForceLevel() {
  		return this.forceLevel;
  	}
+ 	public void setForceLevel(int newForceLevel) {
+ 		this.forceLevel = newForceLevel;
+ 	}
  }

@@ -63,6 +63,7 @@ public class Train extends SWAffordance implements SWActionInterface {
 			Force targetForce = targetActor.getForceActor();
 			//activate Force when actor Force is greater than target force
 			if (actorForce.getForceLevel() > targetForce.getForceLevel()) {
+				targetForce.setForce(true);
 				targetForce.incForceLevel(1);
 				a.say("\t" + a.getShortDescription() + " says: You've completed my training, " + target.getShortDescription()
 								+ ". Now go out there, and may the Force be with you!");

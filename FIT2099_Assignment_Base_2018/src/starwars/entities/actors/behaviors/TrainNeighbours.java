@@ -30,9 +30,10 @@ public class TrainNeighbours {
 					|| (avoidNonActors == false && !(e instanceof SWActor)))) {
 				for (Affordance a : e.getAffordances()) {
 					if (a instanceof Train) {
-
-						trainables.add(new AttackInformation(e, a));
-						break;
+						if (((SWActor)e).getForceActor().getForceLevel() < actor.getForceActor().getForceLevel()) {
+							trainables.add(new AttackInformation(e, a));
+							break;
+						}
 					}
 				}
 			}

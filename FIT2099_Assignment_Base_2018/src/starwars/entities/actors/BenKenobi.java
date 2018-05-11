@@ -36,6 +36,7 @@ public class BenKenobi extends SWLegend {
 		LightSaber bensweapon = new LightSaber(m);
 		setItemCarried(bensweapon);
 		setForceActor(true);
+		getForceActor().setForceLevel(1);
 		//add Train Affordance here
 	}
 
