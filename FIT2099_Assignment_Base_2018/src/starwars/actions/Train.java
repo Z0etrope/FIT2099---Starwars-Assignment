@@ -1,6 +1,3 @@
-/**
- * 
- */
 package starwars.actions;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
@@ -12,23 +9,32 @@ import starwars.SWEntityInterface;
 import starwars.Team;
 
 /**
+ * Command to train entities (get their force level higher).
+ * 
+ * This affordance is attached only to those chosen by the Force
+ * 
  * @author Kevin L
- *
  */
 public class Train extends SWAffordance implements SWActionInterface {
 
 	/**
-	 * @param theTarget
-	 * @param m
+	 * Constructor for the <code>Train</code> class. Will initialize the <code>messageRenderer</code> and
+	 * give <code>Train</code> a priority of 1 (lowest priority is 0).
+	 * 
+	 * @param theTarget the target being trained
+	 * @param m message renderer to display messages
 	 */
 	public Train(SWEntityInterface theTarget, MessageRenderer m) {
 		super(theTarget, m);
 		priority = 1;
-		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see starwars.SWActionInterface#canDo(starwars.SWActor)
+	/**
+	 * Determine whether a particular <code>SWActor a</code> can train the target.
+	 * 
+	 * @author 	Kevin L
+	 * @param 	a the <code>SWActor</code> being queried
+	 * @return 	true if <code>SWActor</code> is not in <code>NEUTRAL Team</code> or <code>TUSKEN Team</code>
 	 */
 	@Override
 	public boolean canDo(SWActor a) {
@@ -36,8 +42,27 @@ public class Train extends SWAffordance implements SWActionInterface {
 		return (a.getTeam() != Team.NEUTRAL && a.getTeam() != Team.TUSKEN);
 	}
 
-	/* (non-Javadoc)
-	 * @see starwars.SWActionInterface#act(starwars.SWActor)
+	/**
+	 * Perform the <code>Train</code> command on an entity.
+	 * <p>
+	 * This method does not raise the force of the target (train) if,
+	 * <ul>
+	 * 	<li>The target of the <code>Train</code> and the <code>SWActor a</code> are in different <code>Team</code></li>
+	 * 	<li>The <code>Force</code> force level of <code>SWActor a</code> is less than the <code>Force</code>
+	 * 		force level of the target of the <code>Train</code></li>
+	 * </ul>
+	 * <p>
+	 * 
+	 * TODO : compare the <code>Force</code> force level of <code>SWActor a</code>and the <code>Force</code>
+	 * 		force level of the target of the <code>Train</code> before training.
+	 * 
+	 * @author 	Kevin L
+	 * @param 	a the <code>SWActor</code> who is training
+	 * @pre 	this method should only be called if the <code>SWActor a</code> is alive
+	 * @pre		<code>Train</code> must not be performed on a dead <code>SWActor</code>
+	 * @see		starwars.SWActor#isDead()
+	 * @see 	starwars.Team
+	 * @see		starwars.Force
 	 */
 	@Override
 	public void act(SWActor a) {
@@ -75,8 +100,10 @@ public class Train extends SWAffordance implements SWActionInterface {
 		} // not game player and different teams
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.monash.fit2099.simulator.matter.Action#getDescription()
+	/**
+	 * A String describing what this <code>Train</code> action will do, suitable for display on a user interface
+	 * 
+	 * @return String comprising "train " and the short description of the target of this <code>Affordance</code>
 	 */
 	@Override
 	public String getDescription() {

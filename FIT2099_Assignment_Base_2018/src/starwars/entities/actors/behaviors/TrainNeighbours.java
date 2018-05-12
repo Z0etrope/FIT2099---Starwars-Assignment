@@ -19,11 +19,11 @@ public class TrainNeighbours {
 		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
 		List<SWEntityInterface> entities = em.contents(location);
 
-		// select the attackable things that are here
+		// select the trainable things that are here
 
 		ArrayList<AttackInformation> trainables = new ArrayList<AttackInformation>();
 		for (SWEntityInterface e : entities) {
-			// Figure out if we should be attacking this entity
+			// Figure out if we should be training this entity
 			if( e != actor && 
 					(e instanceof SWActor && 
 							(avoidFriendlies==false || ((SWActor)e).getTeam() == actor.getTeam()) 
@@ -39,8 +39,8 @@ public class TrainNeighbours {
 			}
 		}
 
-		// if there's at least one thing we can attack, randomly choose
-		// something to attack
+		// if there's at least one thing we can train, randomly choose
+		// something to train
 		if (trainables.size() > 0) {
 			return trainables.get((int) (Math.floor(Math.random() * trainables.size())));
 		} else {
