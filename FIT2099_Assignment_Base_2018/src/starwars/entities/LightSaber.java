@@ -41,9 +41,9 @@ public class LightSaber extends SWEntity {
 		this.shortDescription = "A Lightsaber";
 		this.longDescription = "A lightsaber.  Bzzz-whoosh!";
 		this.hitpoints = 100000; // start with a nice powerful, sharp axe
-		
+		this.capabilities.add(Capability.WEAPON);// it's a weapon.
 		this.addAffordance(new Take(this, m));//add the take affordance so that the LightSaber can be taken by SWActors
-		this.capabilities.add(Capability.WEAPON);// it's a weapon.  
+		  
 	}
 	
 	
@@ -68,6 +68,8 @@ public class LightSaber extends SWEntity {
 	public String getSymbol() {
 		return "†";
 	}
+	
+
 	
 	
 

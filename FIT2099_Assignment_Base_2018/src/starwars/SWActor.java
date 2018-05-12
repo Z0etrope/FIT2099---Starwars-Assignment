@@ -26,6 +26,7 @@ import edu.monash.fit2099.simulator.time.Scheduler;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.actions.Attack;
 import starwars.actions.Move;
+import starwars.entities.LightSaber;
 
 public abstract class SWActor extends Actor<SWActionInterface> implements SWEntityInterface {
 	
@@ -136,7 +137,8 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		
 		//If the HobbitActor is carrying anything, look for its affordances and add them to the list
 		SWEntityInterface item = getItemCarried();
-		if (item != null)
+		
+		if (item != null)			
 			for (Affordance aff : item.getAffordances())
 				if (aff instanceof SWAffordance)
 				actionList.add((SWAffordance)aff);
@@ -283,5 +285,4 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public void setForceActor(boolean newVal) {
 		this.force.setForce(newVal);
 	}
-	
 }

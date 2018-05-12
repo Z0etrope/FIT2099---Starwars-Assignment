@@ -80,7 +80,4 @@ public class BenKenobi extends SWLegend {
 		}
 	}
 
-	protected void initializeForce(){
-		
-	}
 }
