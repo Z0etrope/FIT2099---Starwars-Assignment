@@ -54,6 +54,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	private HashSet<Capability> capabilities;
 
+	/**An indicator to check the capabilities of <code>Force</code> of this actor*/
 	private Force force = new Force(false,0);
 	
 	/**

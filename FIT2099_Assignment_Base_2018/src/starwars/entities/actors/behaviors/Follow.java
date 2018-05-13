@@ -12,6 +12,11 @@ import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.entities.actors.Droid;
 
+/**
+ *@author Jason Setiawan 
+ *@author Kevin Leonard 
+ */
+
 public class Follow {
 
 	
@@ -62,6 +67,7 @@ public class Follow {
 				possibledirections.add(d);
 			}
 		}
+		// choose direction to go for from availble direction
 		Direction heading = possibledirections.get((int) (Math.floor(Math.random() * possibledirections.size())));
 		
 		return heading;

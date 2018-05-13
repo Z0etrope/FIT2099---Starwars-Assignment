@@ -35,6 +35,12 @@ package starwars;
  		return this.forceInIt;
  	}
 
+ 	/**
+	 * Sets the <code>forceInIt</code> of this <code>Force</code> to the new <code>forceInIt</code>
+	 * 
+	 * @param 	force the new boolean of this <code>Force</code>
+	 * @pre 	the new <code>forceInIt</code> should be a boolean value
+	 */
  	public void setForce(boolean force){
  		this.forceInIt = force;
  	}
@@ -50,6 +56,13 @@ package starwars;
  	public int getForceLevel() {
  		return this.forceLevel;
  	}
+
+ 	/**
+	 * Sets the <code>forceLevel</code> of this <code>Force</code> to the new <code>forceLevel</code>
+	 * 
+	 * @param 	VALUE OF FORCE LEVEL <code>Force</code>
+	 * @pre 	the new <code>forceLevel</code> should be an integer
+	 */
  	public void setForceLevel(int newForceLevel) {
  		this.forceLevel = newForceLevel;
  	}
