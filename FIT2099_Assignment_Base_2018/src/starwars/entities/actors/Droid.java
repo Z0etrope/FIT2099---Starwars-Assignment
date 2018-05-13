@@ -15,6 +15,7 @@ public class Droid extends SWActor {
 		this.owner = null;
 		this.autoPilot = true;
 		this.direction = null;
+		path = new Follow(this, this.owner);
 	}
 
 	@Override
@@ -62,6 +63,7 @@ public class Droid extends SWActor {
 
 	public void setOwner(SWActor newOwner){
 		this.owner = newOwner;
+		this.path.setOwner = newOwner;
 	}
 
 	public SWActor getOwner(){
