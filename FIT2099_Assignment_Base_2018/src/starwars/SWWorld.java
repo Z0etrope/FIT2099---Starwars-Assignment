@@ -181,6 +181,12 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(4,3);
 		entityManager.setLocation(tim, loc);
 
+		// A Droid
+		Droid bb8 = new Droid(50, "BB-8", iface, this,luke);
+		bb8.setSymbol("8");
+		loc = myGrid.getLocationByCoordinates(1, 1);
+		entityManager.setLocation(bb8, loc);
+		
 	}
 
 	/*
