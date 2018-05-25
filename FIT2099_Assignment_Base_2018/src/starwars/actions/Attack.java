@@ -19,7 +19,7 @@ import starwars.SWEntityInterface;
  * 2017/02/03	Fixed the bug where the an actor could attack another actor in the same team (asel)
  * 2017/02/08	Attack given a priority of 1 in constructor (asel)
  */
-public class Attack extends SWAffordance implements SWActionInterface {
+public class Attack extends Damageable implements SWActionInterface {
 
 	
 	/**
