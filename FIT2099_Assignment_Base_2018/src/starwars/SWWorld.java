@@ -1,5 +1,7 @@
 package starwars;
 
+import java.util.Random;
+
 import edu.monash.fit2099.gridworld.Grid.CompassBearing;
 import edu.monash.fit2099.simulator.matter.EntityManager;
 import edu.monash.fit2099.simulator.space.Direction;
@@ -187,6 +189,14 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(1, 1);
 		entityManager.setLocation(bb8, loc);
 		
+		// Grenades, KABOOM!
+		for (int i=0;i<6;i++) {
+			int x = new Random().nextInt(10);
+			int y = new Random().nextInt(10);
+			Grenade grenade = new Grenade(iface);
+			loc = myGrid.getLocationByCoordinates(x,y);
+			entityManager.setLocation(grenade, loc);
+		}
 	}
 
 	/*

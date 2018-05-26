@@ -14,5 +14,7 @@ public enum Capability {
 	FILLABLE,//FILLABLE capability allows an entity to be refilled by another entity that 
 	            // has the Dip affordance.  Any FILLABLE Entity MUST implement the Fillable interface
 	DRINKABLE,//DRINKABLE capability allows an entity to be consumed by another entity 
+	THROWABLE,//THROWABLE capability allows an entity to Throw another entity which has the Throw Affordance
+				// to deal area damage around the location
 	
 }
