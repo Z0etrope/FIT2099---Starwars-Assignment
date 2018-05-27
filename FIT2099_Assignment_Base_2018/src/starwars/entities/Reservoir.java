@@ -6,7 +6,6 @@ import starwars.Capability;
 import starwars.SWAffordance;
 import starwars.SWEntity;
 import starwars.actions.Attack;
-import starwars.actions.Damageable;
 import starwars.actions.Dip;
 
 /**
@@ -37,7 +36,6 @@ public class Reservoir extends SWEntity {
 	public Reservoir(MessageRenderer m) {
 		super(m);
 		this.hitpoints = 40; //add hp to reservoir, always start at 40 hp
-		this.addAffordance(new Damageable(this,m)); //reservoirs can be damaged by items
 		
 		SWAffordance dip = new Dip(this, m);
 		this.addAffordance(dip);	

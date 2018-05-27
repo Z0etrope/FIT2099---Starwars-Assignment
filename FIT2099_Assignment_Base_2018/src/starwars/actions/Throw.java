@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Queue;
 
 import edu.monash.fit2099.gridworld.Grid;
-import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.matter.EntityManager;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.Capability;
@@ -99,17 +98,10 @@ public class Throw extends SWAffordance implements SWActionInterface {
 		for (SWEntityInterface e : entities) {
 			// Actor cannot damage itself
 			if( e != a ) {
-				for (Affordance aff : e.getAffordances()) {
-					if (aff instanceof Damageable) {
-						int damage = (int)Math.round(hitpoints/Math.pow(2,step));
-						e.takeDamage(damage);
-						a.say("\t" + e.getShortDescription() + " takes " + Integer.toString(damage) + " damage!");
-						if (e.getHitpoints() <= 0) {
-							//remove Damageable affordance if entity is dead so it cannot be damaged again
-							e.removeAffordance(aff); 
-						}
-						break;
-					}
+				if (e.getHitpoints() > 0) {
+					int damage = (int)Math.round(hitpoints/Math.pow(2,step));
+					e.takeDamage(damage);
+					a.say("\t" + e.getShortDescription() + " takes " + Integer.toString(damage) + " damage!");
 				}
 			}
 		}
