@@ -62,6 +62,10 @@ public class Player extends SWActor {
 		scheduler.schedule(SWGridController.getUserDecision(this), this, 1);
 		
 	}
+
+	public void changeMap(int g){
+		this.world.changeGrid(g);
+	}
 	/**
 	 * This method will describe, 
 	 * <ul>

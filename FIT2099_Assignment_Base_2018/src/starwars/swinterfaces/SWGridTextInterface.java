@@ -199,5 +199,8 @@ public class SWGridTextInterface implements GridRenderer {
 		return cmds.get(selection-1);//return the action selected		
 	}
  	
+ 	public void setGrid(SWGrid newGrid){
+ 		this.grid = newGrid;
+ 	}
 
 }

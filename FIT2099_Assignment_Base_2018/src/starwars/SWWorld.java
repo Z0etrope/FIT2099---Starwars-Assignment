@@ -29,6 +29,10 @@ public class SWWorld extends World {
 	 * <code>SWGrid</code> of this <code>SWWorld</code>
 	 */
 	private SWGrid myGrid;
+	private SWGrid SandCrawlerGrid;
+	private SWGrid currentGrid;
+
+	//private SWGrid <ArrayList>
 	
 	/**The entity manager of the world which keeps track of <code>SWEntities</code> and their <code>SWLocation</code>s*/
 	private static final EntityManager<SWEntityInterface, SWLocation> entityManager = new EntityManager<SWEntityInterface, SWLocation>();
@@ -40,9 +44,12 @@ public class SWWorld extends World {
 	public SWWorld() {
 		SWLocation.SWLocationMaker factory = SWLocation.getMaker();
 		myGrid = new SWGrid(factory);
+		currentGrid = myGrid;
+		SandCrawlerGrid = new SWGrid(4,4,factory);
 		space = myGrid;
-		
 	}
+
+
 
 	/** 
 	 * Returns the height of the <code>Grid</code>. Useful to the Views when rendering the map.
@@ -53,6 +60,7 @@ public class SWWorld extends World {
 	public int height() {
 		return space.getHeight();
 	}
+
 	
 	/** 
 	 * Returns the width of the <code>Grid</code>. Useful to the Views when rendering the map.
@@ -79,6 +87,15 @@ public class SWWorld extends World {
 				loc = myGrid.getLocationByCoordinates(col, row);
 				loc.setLongDescription("SWWorld (" + col + ", " + row + ")");
 				loc.setShortDescription("SWWorld (" + col + ", " + row + ")");
+				loc.setSymbol('.');				
+			}
+		}
+		// Set default location string for SandCrawler
+		for (int row=0; row < SandCrawlerGrid.getHeight(); row++) {
+			for (int col=0; col < SandCrawlerGrid.getWidth(); col++) {
+				loc = SandCrawlerGrid.getLocationByCoordinates(col, row);
+				loc.setLongDescription("Inside SandCrawler (" + col + ", " + row + ")");
+				loc.setShortDescription("Inside SandCrawler (" + col + ", " + row + ")");
 				loc.setSymbol('.');				
 			}
 		}
@@ -143,7 +160,25 @@ public class SWWorld extends World {
 				entityManager.setLocation(new Reservoir(iface), loc);				
 			}
 		}
-		
+
+		// A Sandcrawler
+		SandCrawler jawa = new SandCrawler(1000, "Jawa", iface, this);
+		Jawa.setSymbol("[T]");
+		loc = myGrid.getLocationByCoordinates(5,5);
+
+		//Door in SandCrawler
+		/*
+		 *ONLY USE WHEN SH*T IS REAL
+		 */
+		loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
+		SWEntity door = new SWEntity(iface);
+		door.setShortDescription("an oil can");
+		door.setLongDescription("an oil can, which would theoretically be useful for fixing robots");
+		door.setSymbol("[]");
+		// add a Exit affordance to the oil can, so that an actor can exit it
+		entityManager.setLocation(door, loc);
+		door.addAffordance(new Exit(door,jawa, iface)); 
+
 		// Ben Kenobi's hut
 		/*
 		 * Scatter some other entities and actors around
@@ -188,6 +223,8 @@ public class SWWorld extends World {
 		bb8.setSymbol("8");
 		loc = myGrid.getLocationByCoordinates(1, 1);
 		entityManager.setLocation(bb8, loc);
+
+		
 		
 		// Grenades, KABOOM!
 		for (int i=0;i<6;i++) {
@@ -197,6 +234,14 @@ public class SWWorld extends World {
 			loc = myGrid.getLocationByCoordinates(x,y);
 			entityManager.setLocation(grenade, loc);
 		}
+	}
+
+	public void changeGrid(int g){
+		if (g == 1){
+			this.myGrid = this.SandCrawlerGrid;
+		}
+		else if (g == 0){
+			this.myGrid = this.mainGrid;
 	}
 
 	/*
@@ -277,4 +322,5 @@ public class SWWorld extends World {
 	public static EntityManager<SWEntityInterface, SWLocation> getEntitymanager() {
 		return entityManager;
 	}
+
 }

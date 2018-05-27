@@ -20,6 +20,7 @@ public class SandCrawler extends SWActor {
 	private Patrol path;
 	private int counter;
 
+
 	public SandCrawler(int hitpoints, String name, MessageRenderer m, SWWorld world) {
 		super(Team.NEUTRAL, hitpoints, m, world);
 		this.name = name;
@@ -29,21 +30,26 @@ public class SandCrawler extends SWActor {
 				this.removeAffordance(a);
 			}
 		}
-		this.addAffordance(new Enter(this,m));
+		this.addAffordance(new Enter(this,,m));
 	}
 
 	@Override
 	public void act(){
+
+		SWLocation loc;
+
 		if(isDead()) {
 			return;
 		}
 
-		SWLocation where = (SWLocation)entityManager.whereIs(this);
+		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
+		SWLocation where = (SWLocation)em.whereIs(this);
 		List<SWEntityInterface> entities = em.contents(where);
 		if (entities != null) {
 			for (SWEntityInterface e : entities) {
 				if (e instanceof Droid) {
-					e.
+					loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
+					em.setLocation(e,loc);
 				}
 			}
 			this.counter += 1;

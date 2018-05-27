@@ -27,5 +27,7 @@ public class SWGrid extends Grid<SWLocation> {
 		super(10,10,factory);
 	}
 	
-
+	public SWGrid(int x,int y,LocationMaker<SWLocation> factory){
+		super(x,y,factory);
+	}
 }

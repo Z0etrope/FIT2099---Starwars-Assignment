@@ -34,6 +34,9 @@ public class Exit extends SWAffordance implements SWActionInterface {
 		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
 		SWLocation loc = (SWLocation)em.whereIs(exitTarget);
 		em.setLocation(a, loc);
+		if (a instanceof Player){
+			a.changeMap(1);
+		}
 	}
 
 	@Override
