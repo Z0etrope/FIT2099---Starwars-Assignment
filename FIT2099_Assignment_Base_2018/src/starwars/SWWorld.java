@@ -8,6 +8,7 @@ import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.space.Location;
 import edu.monash.fit2099.simulator.space.World;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
+import starwars.actions.Exit;
 import starwars.actions.Take;
 import starwars.entities.*;
 import starwars.entities.actors.*;
@@ -163,21 +164,23 @@ public class SWWorld extends World {
 
 		// A Sandcrawler
 		SandCrawler jawa = new SandCrawler(1000, "Jawa", iface, this);
-		Jawa.setSymbol("[T]");
+		jawa.setSymbol("[T]");
 		loc = myGrid.getLocationByCoordinates(5,5);
-
+		entityManager.setLocation(jawa, loc);
 		//Door in SandCrawler
 		/*
-		 *ONLY USE WHEN SH*T IS REAL
+		 *ONLY USE WHEN .... IS REAL
 		 */
 		loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
 		SWEntity door = new SWEntity(iface);
-		door.setShortDescription("an oil can");
-		door.setLongDescription("an oil can, which would theoretically be useful for fixing robots");
+		door.setShortDescription("exit door");
+		door.setLongDescription("a door to exit SandCrawler");
 		door.setSymbol("[]");
 		// add a Exit affordance to the oil can, so that an actor can exit it
 		entityManager.setLocation(door, loc);
 		door.addAffordance(new Exit(door,jawa, iface)); 
+		
+		jawa.setExitDoor(door);
 
 		// Ben Kenobi's hut
 		/*
@@ -238,10 +241,11 @@ public class SWWorld extends World {
 
 	public void changeGrid(int g){
 		if (g == 1){
-			this.myGrid = this.SandCrawlerGrid;
+			this.currentGrid = this.SandCrawlerGrid;
 		}
 		else if (g == 0){
-			this.myGrid = this.mainGrid;
+			this.currentGrid = this.myGrid;
+		}
 	}
 
 	/*
@@ -269,7 +273,7 @@ public class SWWorld extends World {
 	 * @return the grid
 	 */
 	public SWGrid getGrid() {
-		return myGrid;
+		return currentGrid;
 	}
 
 	/**
@@ -322,5 +326,8 @@ public class SWWorld extends World {
 	public static EntityManager<SWEntityInterface, SWLocation> getEntitymanager() {
 		return entityManager;
 	}
-
+	
+	public SWGrid getSandCrawlerGrid() {
+		return this.SandCrawlerGrid;
+	}
 }

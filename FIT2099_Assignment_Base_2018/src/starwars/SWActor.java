@@ -286,4 +286,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public void setForceActor(boolean newVal) {
 		this.force.setForce(newVal);
 	}
+	public void changeMap(int g){
+		this.world.changeGrid(g);
+	}
 }

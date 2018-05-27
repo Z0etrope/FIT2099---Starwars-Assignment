@@ -1,24 +1,29 @@
 package starwars.entities.actors;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import edu.monash.fit2099.simulator.matter.Affordance;
+import edu.monash.fit2099.simulator.matter.EntityManager;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
+import starwars.SWEntity;
+import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.Attack;
-import starwars.actions.Damageable;
+
+import starwars.actions.Enter;
 import starwars.actions.Move;
-import starwars.actions.Throw;
 import starwars.entities.actors.behaviors.Patrol;
 
 public class SandCrawler extends SWActor {
 
 	private Patrol path;
 	private int counter;
+	private String name;
+	private SWEntity exitDoor;
 
 
 	public SandCrawler(int hitpoints, String name, MessageRenderer m, SWWorld world) {
@@ -30,9 +35,12 @@ public class SandCrawler extends SWActor {
 				this.removeAffordance(a);
 			}
 		}
-		this.addAffordance(new Enter(this,,m));
+		this.addAffordance(new Enter(this,exitDoor,m));
 	}
-
+	
+	public void setExitDoor(SWEntity newExit) {
+		this.exitDoor = newExit;
+	}
 	@Override
 	public void act(){
 
@@ -45,11 +53,13 @@ public class SandCrawler extends SWActor {
 		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
 		SWLocation where = (SWLocation)em.whereIs(this);
 		List<SWEntityInterface> entities = em.contents(where);
+		
 		if (entities != null) {
 			for (SWEntityInterface e : entities) {
 				if (e instanceof Droid) {
-					loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
+					loc = this.world.getSandCrawlerGrid().getLocationByCoordinates(0,0);
 					em.setLocation(e,loc);
+					this.say(e.getShortDescription() + "is taken inside " + this.getShortDescription());
 				}
 			}
 			this.counter += 1;

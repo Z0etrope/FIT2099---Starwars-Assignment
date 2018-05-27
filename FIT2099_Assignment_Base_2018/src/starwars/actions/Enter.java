@@ -5,9 +5,11 @@ import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActionInterface;
 import starwars.SWActor;
 import starwars.SWAffordance;
+import starwars.SWEntity;
 import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
+import starwars.entities.actors.Player;
 
 public class Enter extends SWAffordance implements SWActionInterface {
 
@@ -34,6 +36,7 @@ public class Enter extends SWAffordance implements SWActionInterface {
 		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
 		SWLocation loc = (SWLocation)em.whereIs(enterTarget);
 		em.setLocation(a, loc);
+		a.say(loc.getShortDescription());
 		if (a instanceof Player){
 			a.changeMap(1);
 		}
