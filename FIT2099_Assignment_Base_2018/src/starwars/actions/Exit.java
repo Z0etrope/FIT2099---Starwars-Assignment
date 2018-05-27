@@ -8,6 +8,7 @@ import starwars.SWAffordance;
 import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
+import starwars.entities.actors.Player;
 
 public class Exit extends SWAffordance implements SWActionInterface {
 
@@ -32,10 +33,11 @@ public class Exit extends SWAffordance implements SWActionInterface {
 	@Override
 	public void act(SWActor a) {
 		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
-		SWLocation loc = (SWLocation)em.whereIs(exitTarget);
+		SWLocation loc = em.whereIs(exitTarget);
 		em.setLocation(a, loc);
+		a.say(loc.getShortDescription());
 		if (a instanceof Player){
-			a.changeMap(1);
+			a.changeMap(0);
 		}
 	}
 

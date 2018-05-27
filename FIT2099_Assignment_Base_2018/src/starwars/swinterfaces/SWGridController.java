@@ -53,7 +53,7 @@ public class SWGridController implements GridController {
 	@Override
 	public void render() {
 		//Call the UI to handle this
-		ui.setGrid(this.world.getGrid());
+		((SWGridTextInterface)ui).setGrid(this.world.getGrid());
 		ui.displayMap();		
 	}
 

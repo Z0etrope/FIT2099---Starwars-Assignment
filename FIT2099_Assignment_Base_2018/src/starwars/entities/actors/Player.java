@@ -63,9 +63,7 @@ public class Player extends SWActor {
 		
 	}
 
-	public void changeMap(int g){
-		this.world.changeGrid(g);
-	}
+	
 	/**
 	 * This method will describe, 
 	 * <ul>
@@ -81,7 +79,8 @@ public class Player extends SWActor {
 	public void describeScene() {
 		//get the location of the player and describe it
 		SWLocation location = this.world.getEntityManager().whereIs(this);
-		say(this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription());
+		//say(this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription());
+		say(this.getShortDescription() + " [" + this.getHitpoints() + "] is at ");
 		
 		//get the items carried for the player
 		SWEntityInterface itemCarried = this.getItemCarried();
