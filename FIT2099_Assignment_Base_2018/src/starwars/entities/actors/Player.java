@@ -60,7 +60,6 @@ public class Player extends SWActor {
 	public void act() {	
 		describeScene();
 		scheduler.schedule(SWGridController.getUserDecision(this), this, 1);
-		
 	}
 
 	

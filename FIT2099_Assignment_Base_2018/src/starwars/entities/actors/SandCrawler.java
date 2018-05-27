@@ -23,10 +23,10 @@ public class SandCrawler extends SWActor {
 	private Patrol path;
 	private int counter;
 	private String name;
-	private SWEntity exitDoor;
+	private SWEntityInterface exitDoor;
 
 
-	public SandCrawler(int hitpoints, String name, MessageRenderer m, SWWorld world) {
+	public SandCrawler(int hitpoints, String name, SWEntityInterface exitDoor, MessageRenderer m, SWWorld world) {
 		super(Team.NEUTRAL, hitpoints, m, world);
 		this.name = name;
 		// Remove Attack Affordance
@@ -35,7 +35,8 @@ public class SandCrawler extends SWActor {
 				this.removeAffordance(a);
 			}
 		}
-		this.addAffordance(new Enter(this,exitDoor,m));
+		this.exitDoor = exitDoor;
+		this.addAffordance(new Enter(this,this.exitDoor,m));
 	}
 	
 	public void setExitDoor(SWEntity newExit) {

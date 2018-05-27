@@ -162,11 +162,7 @@ public class SWWorld extends World {
 			}
 		}
 
-		// A Sandcrawler
-		SandCrawler jawa = new SandCrawler(1000, "Jawa", iface, this);
-		jawa.setSymbol("[T]");
-		loc = myGrid.getLocationByCoordinates(5,5);
-		entityManager.setLocation(jawa, loc);
+		//Create SandCrawler + Door
 		//Door in SandCrawler
 		/*
 		 *ONLY USE WHEN .... IS REAL
@@ -174,10 +170,16 @@ public class SWWorld extends World {
 		loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
 		SWEntity door = new SWEntity(iface);
 		door.setShortDescription("exit door");
-		door.setLongDescription("a door to exit SandCrawler");
+		door.setLongDescription("a");
 		door.setSymbol("[]");
-		// add a Exit affordance to the oil can, so that an actor can exit it
 		entityManager.setLocation(door, loc);
+		
+		// A Sandcrawler
+				SandCrawler jawa = new SandCrawler(1000, "Jawa",door, iface, this);
+				jawa.setSymbol("[T]");
+				loc = myGrid.getLocationByCoordinates(5,5);
+				entityManager.setLocation(jawa, loc);
+		
 		door.addAffordance(new Exit(door,jawa, iface)); 
 		
 		jawa.setExitDoor(door);
