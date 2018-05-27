@@ -2,10 +2,8 @@ package starwars.entities;
 
 import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.Capability;
 import starwars.SWAffordance;
 import starwars.SWEntity;
-import starwars.actions.Attack;
 import starwars.actions.Dip;
 
 /**
@@ -14,6 +12,7 @@ import starwars.actions.Dip;
  * are assumed to have infinite capacity.
  * 
  * @author 	ram
+ * @author  Kevin L
  * @see 	{@link starwars.entities.Canteen}
  * @see {@link starwars.entites.Fillable}
  * @see {@link starwars.actions.Fill} 
@@ -24,6 +23,7 @@ public class Reservoir extends SWEntity {
 	 * Constructor for the <code>Reservoir</code> class. This constructor will,
 	 * <ul>
 	 * 	<li>Initialize the message renderer for the <code>Reservoir</code></li>
+	 *  <li>Set the <code>hitpoints</code> of this <code>Reservoir</code> to 40</li>
 	 * 	<li>Set the short description of this <code>Reservoir</code> to "a water reservoir</li>
 	 * 	<li>Set the long description of this <code>Reservoir</code> to "a water reservoir..."</li>
 	 * 	<li>Add a <code>Dip</code> affordance to this <code>Reservoir</code> so it can be taken</li> 
@@ -56,18 +56,23 @@ public class Reservoir extends SWEntity {
 	
 	/**
 	 * Method insists damage on this <code>Reservoir</code> by reducing a certain 
-	 * amount of <code>damage</code> from this <code>Swords</code> <code>hitpoints</code>
+	 * amount of <code>damage</code> from this <code>Reservoir</code> <code>hitpoints</code>
 	 * <p>
-	 * This method will also change this <code>Blaster</code>s <code>longDescription</code> to
-	 * "A broken sword that was once gleaming"  and this <code>Blaster</code>s <code>shortDescription</code> to
-	 * "a broken sword" if the <code>hitpoints</code> after taking the damage is zero or less.
+	 * This method will change this <code>Reservoir</code>s <code>longDescription</code> to
+	 * "a damaged water reservoir, leaking slowly" and this <code>Reservoir</code>s <code>shortDescription</code> to
+	 * "a damaged water reservoir" if the <code>hitpoints</code> after taking the damage less than 20.
+	 * <p>
+	 * This method will change this <code>Reservoir</code>s <code>longDescription</code> to
+	 * "the wreckage of a water reservoir surrounded by slightly damp soil" and this <code>Reservoir</code>s 
+	 * <code>shortDescription</code> to "the wreckage of a water reservoir" if the <code>hitpoints</code>
+	 * after taking the damage less than 20.
 	 * <p>
 	 * If the <code>hitpoints</code> after taking the damage is zero or less, this method will remove the 
-	 * <code>CHOPPER</code> and <code>WEAPON</code> capabilities from this <code>Blaster</code> since a broken sword 
-	 * cannot be used to <code>Chop</code> or <code>Attack</code>.
+	 * <code>Dip</code> affordance from this <code>Reservoir</code> since the wreckage of <code>Reservoir</code> 
+	 * cannot be used to <code>Dip</code> and <code>Fill</code> anymore.
 	 * <p>
 	 * 
-	 * @author 	Asel
+	 * @author  Kevin L
 	 * @param 	damage the amount of <code>hitpoints</code> to be reduced
 	 * @see 	{@link starwars.actions.Attack}
 	 */
