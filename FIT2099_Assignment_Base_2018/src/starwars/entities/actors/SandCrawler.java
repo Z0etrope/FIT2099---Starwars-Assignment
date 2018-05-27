@@ -85,7 +85,7 @@ public class SandCrawler extends SWActor {
 			
 		}
 
-		if(this.counter > 0){// SandCrawler only move each 2 turns
+		if (this.counter%2 == 0){// SandCrawler only move each 2 turns
 			Direction newdirection = path.getNext();
 			say(getShortDescription() + " moves " + newdirection);
 			Move myMove = new Move(newdirection, messageRenderer, world);
@@ -93,9 +93,9 @@ public class SandCrawler extends SWActor {
 			this.counter = 0;
 		}
 
-		else{
-			this.counter += 1;
-		}
+		
+		this.counter += 1;
+		
 		
 	}
 
