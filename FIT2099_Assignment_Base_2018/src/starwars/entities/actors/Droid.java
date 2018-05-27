@@ -14,8 +14,6 @@
  */
 package starwars.entities.actors;
 
-import java.util.ArrayList;
-
 import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
@@ -24,9 +22,7 @@ import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.Attack;
-import starwars.actions.Damageable;
 import starwars.actions.Move;
-import starwars.actions.Throw;
 import starwars.entities.actors.behaviors.Follow;
 
 	/**
@@ -64,7 +60,6 @@ public class Droid extends SWActor {
 				this.removeAffordance(a);
 			}
 		}
-		this.addAffordance(new Damageable(this,m));
 		
 		path = new Follow();
 	}
@@ -81,7 +76,6 @@ public class Droid extends SWActor {
 				this.removeAffordance(a);
 			}
 		}
-		this.addAffordance(new Damageable(this,m));
 		
 		path = new Follow();
 	}

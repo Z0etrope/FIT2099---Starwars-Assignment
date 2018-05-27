@@ -19,8 +19,25 @@ import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.entities.Grenade;
 
+/**
+ * Command to throw entities to deal damage to an area around them.
+ * <p>
+ * The location for the throw is the location of the entity doing the action
+ * and the damage will spread as far as the specified radius of the throwable entity
+ * 
+ * This affordance is attached to all throwable entities
+ * 
+ * @author Kevin L
+ */
 public class Throw extends SWAffordance implements SWActionInterface {
 
+	/**
+	 * Constructor for the <code>Throw</code> class. Will initialize the <code>messageRenderer</code> and
+	 * give <code>Throw</code> a priority of 1 (lowest priority is 0).
+	 * 
+	 * @param theTarget the target being thrown
+	 * @param m message renderer to display messages
+	 */
 	public Throw(SWEntityInterface theTarget, MessageRenderer m) {
 		super(theTarget, m);
 		priority = 1;
@@ -36,23 +53,54 @@ public class Throw extends SWAffordance implements SWActionInterface {
 		return 1;
 	}
 	
+	/**
+	 * Determine whether a particular <code>SWActor a</code> can throw the target.
+	 * <p>
+	 * The target should be carried by the actor and should have <code>THROWABLE</code>
+	 * capability
+	 * 
+	 * @author 	Kevin L
+	 * @param 	a the <code>SWActor</code> being queried
+	 * @return 	true if <code>SWActor</code> carries the target and target has <code>THROWABLE</code>
+	 * 			capability, otherwise return false
+	 */
 	@Override
 	public boolean canDo(SWActor a) {
 		SWEntityInterface item = a.getItemCarried();
-		if ((item!= null) && (item == this.target)) {
-			return item.hasCapability(Capability.THROWABLE);
+		if ((item!= null) && (item == this.target)) { //target must be the same with item carried by actor
+			return item.hasCapability(Capability.THROWABLE); //item should have THROWABLE capability
 		}
 		return false;
 	}
 
+	/**
+	 * Perform the <code>Throw</code> command on an entity.
+	 * <p>
+	 * This method will get the <code>Location</code> of the <code>SWActor a</code>, get the
+	 * <code>radius</code> of the target item, and deal damage to all <code>SWEntity</code> according to
+	 * their distance from the <code>Location</code> of <code>SWActor a</code>.
+	 * <p>
+	 * Damage done to each entities will be calculated by counting the target's hitpoints divided by 
+	 * 2^(distance from <code>SWActor a</code> <code>Location</code>, rounded down.
+	 * <p>
+	 * Then, it would tire the <code>SWActor a</code> and remove the item carried by <code>SWActor a</code>.
+	 * 
+	 * @author 	Kevin L
+	 * @param 	a the <code>SWActor</code> who is throwing its item carried
+	 * @pre 	this method should only be called if the <code>SWActor a</code> is alive
+	 * @pre		this method can only be called if the item carried by <code>SWActor a</code> has <code>THROWABLE</code> capability
+	 * @pre		an <code>Throw</code> must not deal damage on <code>SWEntities</code> with 0 or less hitpoints
+	 * @post	if a <code>SWActor</code>dies in an <code>Attack</code> their <code>Attack</code> affordance would be removed
+	 * @see		starwars.entities.Grenade
+	 */
 	@Override
 	public void act(SWActor a) {
 		if (target instanceof Grenade) {
 			Grenade theItem = (Grenade) target;
-			int hitpoints = theItem.getHitpoints();
-			int radius = theItem.getRadius();
+			int hitpoints = theItem.getHitpoints(); //maximum damage that can be dealt
+			int radius = theItem.getRadius(); //distance for the area damage
 			EntityManager<SWEntityInterface, SWLocation> em = SWAction.getEntitymanager();
-			SWLocation loc = (SWLocation)em.whereIs(a);
+			SWLocation loc = (SWLocation)em.whereIs(a); //gets the location of actor
 			
 			a.say(a.getShortDescription() + " throws " + target.getShortDescription() + " at " + loc.getShortDescription());
 			
@@ -94,21 +142,39 @@ public class Throw extends SWAffordance implements SWActionInterface {
 		}
 	}
 
+	/**
+	 * The method that resolves the damage calculation for <code>Throw</code> action.
+	 * <p>
+	 * Damage done to each entities will be calculated by counting the target's hitpoints divided by 
+	 * 2^(distance from <code>SWActor a</code> <code>Location</code>, rounded down.
+	 * 
+	 * @author 	Kevin L
+	 * @param 	hitpoints the maximum damage that can be dealt to any entities
+	 * @param  	step the distance from <code>SWActor a</code> <code>Location</code>
+	 * @param	entities the list of entities that will take damage
+	 * @param 	a the <code>SWActor</code> who is throwing its item carried
+	 * @pre		an <code>Throw</code> must not deal damage on <code>SWEntities</code> with 0 or less hitpoints
+	 * @post	if a <code>SWActor</code>dies in an <code>Attack</code> their <code>Attack</code> affordance would be removed
+	 * @see		starwars.entities.Grenade
+	 */
 	public void dealDamage(int hitpoints, int step, List<SWEntityInterface> entities, SWActor a) {
 		if (entities == null) return;
 		for (SWEntityInterface e : entities) {
 			// Actor cannot damage itself
 			if( e != a ) {
-				for (Affordance aff : e.getAffordances()) {
-					if (aff instanceof Damageable) {
-						int damage = (int)Math.round(hitpoints/Math.pow(2,step));
-						e.takeDamage(damage);
-						a.say("\t" + e.getShortDescription() + " takes " + Integer.toString(damage) + " damage!");
-						if (e.getHitpoints() <= 0) {
-							//remove Damageable affordance if entity is dead so it cannot be damaged again
-							e.removeAffordance(aff); 
+				if (e.getHitpoints() > 0) {
+					int damage = (int)Math.round(hitpoints/Math.pow(2,step));
+					e.takeDamage(damage);
+					a.say("\t" + e.getShortDescription() + " takes " + Integer.toString(damage) + " damage!");
+				}
+				if (e.getHitpoints() <= 0) {  // can't use isDead(), as we don't know that the target is an actor
+					e.setLongDescription(e.getLongDescription() + ", died by the explosion of " + target.getShortDescription());
+					//remove the attack affordance of the dead actor so it can no longer be attacked
+					for (Affordance aff : e.getAffordances()) {
+						if (aff instanceof Attack) {
+							e.removeAffordance(aff);
+							break;
 						}
-						break;
 					}
 				}
 			}
