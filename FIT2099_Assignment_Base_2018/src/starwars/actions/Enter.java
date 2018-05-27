@@ -36,10 +36,10 @@ public class Enter extends SWAffordance implements SWActionInterface {
 		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
 		SWLocation loc = (SWLocation)em.whereIs(enterTarget);
 		em.setLocation(a, loc);
-		a.say(loc.getShortDescription());
 		if (a instanceof Player){
 			a.changeMap(1);
 		}
+		a.resetMoveCommands(loc);
 	}
 
 	@Override
