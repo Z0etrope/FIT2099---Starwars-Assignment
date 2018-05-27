@@ -38,6 +38,7 @@ public class Exit extends SWAffordance implements SWActionInterface {
 		if (a instanceof Player){
 			a.changeMap(0);
 		}
+		a.resetMoveCommands(loc);
 	}
 
 	@Override

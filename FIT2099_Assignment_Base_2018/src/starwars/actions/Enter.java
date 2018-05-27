@@ -39,6 +39,7 @@ public class Enter extends SWAffordance implements SWActionInterface {
 		if (a instanceof Player){
 			a.changeMap(1);
 		}
+		a.resetMoveCommands(loc);
 	}
 
 	@Override

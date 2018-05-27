@@ -169,16 +169,16 @@ public class SWWorld extends World {
 		 */
 		loc = SandCrawlerGrid.getLocationByCoordinates(0,0);
 		SWEntity door = new SWEntity(iface);
-		door.setShortDescription("exit door");
-		door.setLongDescription("a");
+		door.setShortDescription("door");
+		door.setLongDescription("a door to exit SandCrawler");
 		door.setSymbol("[]");
 		entityManager.setLocation(door, loc);
 		
 		// A Sandcrawler
-				SandCrawler jawa = new SandCrawler(1000, "Jawa",door, iface, this);
-				jawa.setSymbol("[T]");
-				loc = myGrid.getLocationByCoordinates(5,5);
-				entityManager.setLocation(jawa, loc);
+		SandCrawler jawa = new SandCrawler(1000, "Jawa",door, iface, this);
+		jawa.setSymbol("[T]");
+		loc = myGrid.getLocationByCoordinates(5,5);
+		entityManager.setLocation(jawa, loc);
 		
 		door.addAffordance(new Exit(door,jawa, iface)); 
 		
