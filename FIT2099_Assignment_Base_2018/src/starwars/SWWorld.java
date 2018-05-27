@@ -175,7 +175,7 @@ public class SWWorld extends World {
 		entityManager.setLocation(door, loc);
 		
 		// A Sandcrawler
-		SandCrawler jawa = new SandCrawler(1000, "Jawa",door, iface, this);
+		SandCrawler jawa = new SandCrawler(1000, "Jawa",door, iface, this,patrolmoves);
 		jawa.setSymbol("[T]");
 		loc = myGrid.getLocationByCoordinates(5,5);
 		entityManager.setLocation(jawa, loc);
