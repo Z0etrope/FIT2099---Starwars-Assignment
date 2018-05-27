@@ -10,7 +10,9 @@ import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.entities.actors.Player;
-
+/**
+ *@author Jason Setiawan
+ */
 public class Enter extends SWAffordance implements SWActionInterface {
 
 	private SWEntityInterface enterTarget;
@@ -28,13 +30,13 @@ public class Enter extends SWAffordance implements SWActionInterface {
 
 	@Override
 	public boolean canDo(SWActor a) {
-		return a.getForceActor().hasForce();
+		return a.getForceActor().hasForce();// check whether the SWActor has force or not
 	}
 
 	@Override
 	public void act(SWActor a) {
-		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
-		SWLocation loc = (SWLocation)em.whereIs(enterTarget);
+		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();//check for all entities
+		SWLocation loc = (SWLocation)em.whereIs(enterTarget); //check the location of the target to teleport
 		em.setLocation(a, loc);
 		if (a instanceof Player){
 			a.changeMap(1);

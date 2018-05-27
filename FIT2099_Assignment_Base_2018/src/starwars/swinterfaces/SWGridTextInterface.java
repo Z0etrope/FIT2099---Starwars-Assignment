@@ -198,7 +198,7 @@ public class SWGridTextInterface implements GridRenderer {
 	
 		return cmds.get(selection-1);//return the action selected		
 	}
- 	
+ 	//this method is to change to the active display relative to the player
  	public void setGrid(SWGrid newGrid){
  		this.grid = newGrid;
  	}

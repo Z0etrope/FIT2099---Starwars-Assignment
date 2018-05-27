@@ -46,7 +46,7 @@ public class SWWorld extends World {
 		SWLocation.SWLocationMaker factory = SWLocation.getMaker();
 		myGrid = new SWGrid(factory);
 		currentGrid = myGrid;
-		SandCrawlerGrid = new SWGrid(4,4,factory);
+		SandCrawlerGrid = new SWGrid(4,4,factory);// create a new Grid(map) for the Interior of SandCrawler
 		space = myGrid;
 	}
 
@@ -163,7 +163,7 @@ public class SWWorld extends World {
 		}
 
 		//Create SandCrawler + Door
-		//Door in SandCrawler
+		
 		/*
 		 *ONLY USE WHEN .... IS REAL
 		 */
@@ -180,7 +180,7 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(5,5);
 		entityManager.setLocation(jawa, loc);
 		
-		door.addAffordance(new Exit(door,jawa, iface)); 
+		door.addAffordance(new Exit(door,jawa, iface)); //add exit affordance to door inside SandCrawler
 		
 		jawa.setExitDoor(door);
 
@@ -240,7 +240,12 @@ public class SWWorld extends World {
 			entityManager.setLocation(grenade, loc);
 		}
 	}
-
+	/**
+	 * Change the current grid.
+	 * 
+	 * @author Jason Setiawan
+	 * @return the grid
+	 */
 	public void changeGrid(int g){
 		if (g == 1){
 			this.currentGrid = this.SandCrawlerGrid;
@@ -329,6 +334,13 @@ public class SWWorld extends World {
 		return entityManager;
 	}
 	
+	/**
+	 * Returns the <code>SandCrawlerGrid</code> 
+	 * 
+	 * 
+	 * @return 	the <code>SandCrawlerGrid</code> of this <code>SWWorld</code>
+	 * 
+	 */
 	public SWGrid getSandCrawlerGrid() {
 		return this.SandCrawlerGrid;
 	}

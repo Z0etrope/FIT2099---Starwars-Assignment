@@ -43,7 +43,7 @@ public class SWGridController implements GridController {
 	 */
 	public SWGridController(SWWorld world) {
 		this.grid = world.getGrid();
-		this.world = world;
+		this.world = world;//Store the world to use a method from world's class
 		//change the user interface to be used here in the constructor
 		SWGridController.ui = new SWGridTextInterface(this.grid); //use a Text Interface to interact
 		//this.ui = new SWGridBasicGUI(this.grid); //Use a Basic GUI to interact
@@ -53,7 +53,7 @@ public class SWGridController implements GridController {
 	@Override
 	public void render() {
 		//Call the UI to handle this
-		((SWGridTextInterface)ui).setGrid(this.world.getGrid());
+		((SWGridTextInterface)ui).setGrid(this.world.getGrid());// always update the ACTIVE grid relative to the player's perspective
 		ui.displayMap();		
 	}
 

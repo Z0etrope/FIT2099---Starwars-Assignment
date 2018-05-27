@@ -27,13 +27,13 @@ public class Exit extends SWAffordance implements SWActionInterface {
 
 	@Override
 	public boolean canDo(SWActor a) {
-		return a.getForceActor().hasForce();
+		return a.getForceActor().hasForce();// check whether the SWActor has force or not
 	}
 
 	@Override
 	public void act(SWActor a) {
-		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();
-		SWLocation loc = em.whereIs(exitTarget);
+		EntityManager<SWEntityInterface, SWLocation> em = SWWorld.getEntitymanager();//check for all entities
+		SWLocation loc = em.whereIs(exitTarget);//check the location of the target to teleport
 		em.setLocation(a, loc);
 		if (a instanceof Player){
 			a.changeMap(0);
